@@ -66,6 +66,7 @@
             lblMessage = new Label();
             butContinue = new Button();
             pBoxDeath = new PictureBox();
+            butSave = new Button();
             grpBoxPlayerStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pBoxPlayerIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBoxMob).BeginInit();
@@ -488,6 +489,20 @@
             pBoxDeath.TabStop = false;
             pBoxDeath.Visible = false;
             // 
+            // butSave
+            // 
+            butSave.BackColor = Color.Moccasin;
+            butSave.BackgroundImage = (Image)resources.GetObject("butSave.BackgroundImage");
+            butSave.Font = new Font("Segoe UI Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            butSave.ForeColor = Color.FromArgb(192, 255, 255);
+            butSave.Location = new Point(51, 0);
+            butSave.Name = "butSave";
+            butSave.Size = new Size(111, 31);
+            butSave.TabIndex = 21;
+            butSave.Text = "&Save Game";
+            butSave.UseVisualStyleBackColor = false;
+            butSave.Click += butSave_Click;
+            // 
             // frmGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -495,6 +510,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1000, 450);
+            Controls.Add(butSave);
             Controls.Add(butContinue);
             Controls.Add(lblMessage);
             Controls.Add(lstBoxLog);
@@ -570,5 +586,6 @@
         private Label lblMobCurrentHP;
         private ProgressBar pBarMobHP;
         private PictureBox pBoxDeath;
+        private Button butSave;
     }
 }

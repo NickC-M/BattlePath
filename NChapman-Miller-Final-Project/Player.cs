@@ -34,6 +34,18 @@ namespace NChapman_Miller_Final_Project
        
           
         }
+        public Player(int currentHP, string name, character_type battleClass, int exp, int level)
+        {
+            
+            Name = name;
+            BattleClass = battleClass;
+            CurrentHP = currentHP;
+            Exp = exp;
+            Level = level;
+
+
+
+        }
         public async Task TakeDmg(Mob enemy, PictureBox hurt)
         {
             if (enemy == null) return;
@@ -121,6 +133,13 @@ namespace NChapman_Miller_Final_Project
             GameMessages.Send("!!! " + Name.ToUpper() + " TOOK " + dmg + " DAMAGE  LEAVING THEM WITH "+CurrentHP +" HEALTH !!!");
             await Task.Delay(800);
             hurt.Visible=false;
+        }
+
+
+        public override string ToString()
+        {
+            
+            return $"{CurrentHP},{Name},{BattleClass.Name},{BattleClass.Damage},{BattleClass.MaxHealth},{BattleClass.Speed},{Exp},{Level}";
         }
     }
 }

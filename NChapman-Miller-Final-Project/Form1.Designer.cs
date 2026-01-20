@@ -41,6 +41,7 @@
             butClassInfo = new Button();
             txtBoxPlayerName = new TextBox();
             lblPlayerName = new Label();
+            butLoad = new Button();
             grpBoxClass.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,11 +51,11 @@
             butPlayGame.BackgroundImage = (Image)resources.GetObject("butPlayGame.BackgroundImage");
             butPlayGame.Font = new Font("Segoe UI Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             butPlayGame.ForeColor = Color.FromArgb(192, 255, 255);
-            butPlayGame.Location = new Point(243, 281);
+            butPlayGame.Location = new Point(182, 281);
             butPlayGame.Name = "butPlayGame";
             butPlayGame.Size = new Size(87, 32);
             butPlayGame.TabIndex = 0;
-            butPlayGame.Text = "Play Game";
+            butPlayGame.Text = "&Play Game";
             butPlayGame.UseVisualStyleBackColor = false;
             butPlayGame.Click += butPlayGame_Click;
             // 
@@ -64,11 +65,11 @@
             butExit.BackgroundImage = (Image)resources.GetObject("butExit.BackgroundImage");
             butExit.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             butExit.ForeColor = Color.FromArgb(192, 255, 255);
-            butExit.Location = new Point(452, 281);
+            butExit.Location = new Point(468, 281);
             butExit.Name = "butExit";
             butExit.Size = new Size(87, 32);
             butExit.TabIndex = 1;
-            butExit.Text = "Exit";
+            butExit.Text = "&Exit";
             butExit.UseVisualStyleBackColor = false;
             butExit.Click += button1_Click;
             // 
@@ -155,11 +156,11 @@
             butClassInfo.BackgroundImage = (Image)resources.GetObject("butClassInfo.BackgroundImage");
             butClassInfo.Font = new Font("Segoe UI Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             butClassInfo.ForeColor = Color.FromArgb(192, 255, 255);
-            butClassInfo.Location = new Point(21, 281);
+            butClassInfo.Location = new Point(39, 281);
             butClassInfo.Name = "butClassInfo";
             butClassInfo.Size = new Size(87, 32);
             butClassInfo.TabIndex = 4;
-            butClassInfo.Text = "Class Info";
+            butClassInfo.Text = "&Class Info";
             butClassInfo.UseVisualStyleBackColor = false;
             butClassInfo.Click += butClassInfo_Click;
             // 
@@ -182,6 +183,20 @@
             lblPlayerName.TabIndex = 6;
             lblPlayerName.Text = "Player Name:";
             // 
+            // butLoad
+            // 
+            butLoad.BackColor = Color.Moccasin;
+            butLoad.BackgroundImage = (Image)resources.GetObject("butLoad.BackgroundImage");
+            butLoad.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            butLoad.ForeColor = Color.FromArgb(192, 255, 255);
+            butLoad.Location = new Point(325, 281);
+            butLoad.Name = "butLoad";
+            butLoad.Size = new Size(87, 32);
+            butLoad.TabIndex = 7;
+            butLoad.Text = "&Load Save";
+            butLoad.UseVisualStyleBackColor = false;
+            butLoad.Click += butLoad_Click;
+            // 
             // frmMainMenu
             // 
             AcceptButton = butPlayGame;
@@ -191,6 +206,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             CancelButton = butExit;
             ClientSize = new Size(599, 325);
+            Controls.Add(butLoad);
             Controls.Add(lblPlayerName);
             Controls.Add(txtBoxPlayerName);
             Controls.Add(butClassInfo);
@@ -223,5 +239,6 @@
         private Button butClassInfo;
         private TextBox txtBoxPlayerName;
         private Label lblPlayerName;
+        private Button butLoad;
     }
 }

@@ -34,7 +34,10 @@ namespace NChapman_Miller_Final_Project
             AtkSd = atkSd;
         }
 
-      
+        public character_type()
+        {
+
+        }
 
         public void DmgUp()
         {
@@ -56,5 +59,7 @@ namespace NChapman_Miller_Final_Project
             MaxHealth += 3;
         
         }
+
+       
     }
 }

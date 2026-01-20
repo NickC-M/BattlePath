@@ -16,9 +16,9 @@ namespace NChapman_Miller_Final_Project
 {
     public partial class frmGame : Form
     {
-       /*
-        * active game objects
-        */
+        /*
+         * active game objects
+         */
         private static readonly Random gameRng = new Random();
 
         public Player gamer;
@@ -183,7 +183,7 @@ namespace NChapman_Miller_Final_Project
             butRun.Enabled = false;
             butWalk.Enabled = false;
             butLevelUp.Enabled = false;
-           
+
         }
 
         private void butContinue_Click_1(object sender, EventArgs e)
@@ -199,7 +199,7 @@ namespace NChapman_Miller_Final_Project
             if (nextRoom.IsExit)
             {
                 this.BackgroundImage = Properties.Resources.courtyard;
-              
+
                 nextRoom.IsExit = false;
             }
             RunNextEvent();
@@ -240,7 +240,7 @@ namespace NChapman_Miller_Final_Project
                 pBoxDeath.Image = Properties.Resources.deathscreen;
                 pBoxDeath.Visible = true;
                 pBoxDeath.BringToFront();
-              
+
                 deathSound.PlaySync();
                 sadSound.Play();
                 foreach (Control control in this.Controls)
@@ -270,7 +270,7 @@ namespace NChapman_Miller_Final_Project
                 lblMobSpd.Text = "";
                 lblMobAcc.Text = "";
                 pBoxMob.Image = null;
-                
+
                 return;
             }
 
@@ -301,14 +301,14 @@ namespace NChapman_Miller_Final_Project
                     }
                     AddMessage("HEALING IS LESS EFFECTIVE IN COMBAT!");
                     healSound.Play();
-                    gamer.Juice = (gamer.Juice / 2)+5;
+                    gamer.Juice = (gamer.Juice / 2) + 5;
                     gamer.Heal();
                     UpdatePlayerStats();
                     PauseForMessage($"{gamer.Name} HEALED!");
 
-                   await gamer.TakeDmg(currentEnemy, pBoxHurt);
+                    await gamer.TakeDmg(currentEnemy, pBoxHurt);
                     UpdatePlayerStats();
-                    
+
                 });
                 return;
             }
@@ -322,7 +322,7 @@ namespace NChapman_Miller_Final_Project
             QueueEvent(() =>
             {
                 healSound.Play();
-                gamer.Heal();              
+                gamer.Heal();
                 UpdatePlayerStats();
                 PauseForMessage($"{gamer.Name} HEALED!");
             });
@@ -371,7 +371,8 @@ namespace NChapman_Miller_Final_Project
             if (room.IsExit)
             {
 
-                QueueEvent(async() => {
+                QueueEvent(async () =>
+                {
                     PauseForMessage($"!!! {gamer.Name.ToUpper()} FOUND THE EXIT !!! {gamer.Name.ToUpper()} FEELS REPLENISHED !!! NOW ENTERING THE COURTYARD... !!!");
                     gamer.CurrentHP = gamer.BattleClass.MaxHealth;
                     gamer.Juice += 10;
@@ -381,10 +382,10 @@ namespace NChapman_Miller_Final_Project
 
                 });
 
-               
-                
-                
-                
+
+
+
+
                 return;
             }
             this.BackgroundImage = Properties.Resources.castle2;
@@ -440,7 +441,7 @@ namespace NChapman_Miller_Final_Project
                     PauseForMessage(scene.LastMessage);
                     gamer.Exp += scene.Exp;
                     UpdatePlayerStats();
-                   
+
                 });
                 QueueEvent(() =>
                 {
@@ -458,7 +459,7 @@ namespace NChapman_Miller_Final_Project
                     gamer.Exp += scene.Exp - 4;
                     gamer.CurrentHP -= scene.Dmg;
                     UpdatePlayerStats();
-                   
+
                 });
                 QueueEvent(() =>
                 {
@@ -472,14 +473,14 @@ namespace NChapman_Miller_Final_Project
          * combat encouters
          */
 
-        public virtual void StartCombat(Mob enemy)
+        public void StartCombat(Mob enemy)
         {
             if (enemy is Mob.Boss boss)
             {
                 BossCombat(boss);
                 return;
             }
-           
+
             currentEnemy = enemy;
 
             QueueEvent(() =>
@@ -490,7 +491,7 @@ namespace NChapman_Miller_Final_Project
                 PauseForMessage($"A {currentEnemy.Name} attacked!");
             });
 
-         
+
 
         }
 
@@ -500,9 +501,9 @@ namespace NChapman_Miller_Final_Project
 
             currentEnemy = boss;
 
-            QueueEvent(async() =>
+            QueueEvent(async () =>
             {
-              
+
                 EnterCombat();
                 UpdateMob(boss);
                 PauseForMessage(boss.Intro);
@@ -510,13 +511,13 @@ namespace NChapman_Miller_Final_Project
                 await BossTurn(boss);
             });
 
-          
+
         }
         public async Task BossTurn(Mob.Boss boss)
         {
-            if (boss == null || boss.Dead) {  return; }
+            if (boss == null || boss.Dead) { return; }
 
-            QueueEvent(async () => 
+            QueueEvent(async () =>
             {
                 //phase 2 here
                 if (boss.CurrentHp <= boss.MaxHealth / 2 && boss.Icon != boss.Phase2)
@@ -579,7 +580,7 @@ namespace NChapman_Miller_Final_Project
                         {
                             await gamer.TakeDmg(currentEnemy, pBoxHurt);
                         }
-          
+
                         UpdatePlayerStats();
                     }
                 }
@@ -593,12 +594,12 @@ namespace NChapman_Miller_Final_Project
                     {
                         await gamer.TakeDmg(currentEnemy, pBoxHurt);
                     }
-                    
+
                     UpdatePlayerStats();
 
 
                     if (currentEnemy == null) { return; }
-                   await currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                    await currentEnemy.TakeDmg(gamer, pBoxHurtMob);
                     UpdateMob(currentEnemy);
                 }
                 if (currentEnemy == null) return;
@@ -637,7 +638,7 @@ namespace NChapman_Miller_Final_Project
         {
             if (currentEnemy == null) return;
 
-            QueueEvent(async() =>
+            QueueEvent(async () =>
             {
                 gamer.Juice = Math.Min(gamer.Juice + 7, 20);
                 gamer.Blocking = true;
@@ -651,7 +652,7 @@ namespace NChapman_Miller_Final_Project
         {
             if (currentEnemy == null) return;
 
-            QueueEvent(async() =>
+            QueueEvent(async () =>
             {
                 Random rng = gameRng;
                 int roll = rng.Next(101);
@@ -686,7 +687,8 @@ namespace NChapman_Miller_Final_Project
             cBoxLevelOpts.Visible = false;
             butBlock.Visible = true;
             butRun.Visible = true;
-        
+            butSave.Visible = false;
+
         }
 
         public void ExitCombat()
@@ -700,6 +702,7 @@ namespace NChapman_Miller_Final_Project
             butBlock.Visible = false;
             butRun.Visible = false;
             butHeal.Visible = true;
+            butSave.Visible = true;
             UpdateMob(empty);
 
             currentEnemy = null;
@@ -717,11 +720,14 @@ namespace NChapman_Miller_Final_Project
             {
                 switch (cBoxLevelOpts.SelectedIndex)
                 {
-                    case 0: gamer.BattleClass.HpUp(); gamer.CurrentHP += 3; 
+                    case 0:
+                        gamer.BattleClass.HpUp(); gamer.CurrentHP += 3;
                         break;
-                    case 1: gamer.BattleClass.DmgUp(); 
+                    case 1:
+                        gamer.BattleClass.DmgUp();
                         break;
-                    case 2: gamer.BattleClass.SpdUp(); 
+                    case 2:
+                        gamer.BattleClass.SpdUp();
                         break;
                 }
 
@@ -735,7 +741,7 @@ namespace NChapman_Miller_Final_Project
             }
         }
 
-    
+
         private void butExit_Click(object sender, EventArgs e)
         {
             deathSound.Stop();
@@ -750,6 +756,15 @@ namespace NChapman_Miller_Final_Project
             public static void Send(string message) => Output?.Invoke(message);
         }
 
-        
+        private void butSave_Click(object sender, EventArgs e)
+        {
+            string filePath = "save.txt";
+
+            using (StreamWriter saveWriter = new StreamWriter(filePath))
+            {
+                saveWriter.WriteLine(gamer);
+            }
+            this.Close();
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System.Media;
+using System.Xml.Linq;
 /*
  * Nicholas Chapman-Miller
  * Final Project
@@ -17,7 +18,7 @@ namespace NChapman_Miller_Final_Project
         public character_type Bowman;
         public character_type Wizard;
 
-        
+
         public frmMainMenu()
         {
             InitializeComponent();
@@ -72,16 +73,20 @@ namespace NChapman_Miller_Final_Project
             if (radButKnight.Checked)
             {
                 ShowInfo(Knight);
-            }else if (radButBeserk.Checked)
+            }
+            else if (radButBeserk.Checked)
             {
                 ShowInfo(Beserker);
-            }else if(radButBlob.Checked)
+            }
+            else if (radButBlob.Checked)
             {
                 ShowInfo(Blob);
-            }else if (radButBowman.Checked)
+            }
+            else if (radButBowman.Checked)
             {
                 ShowInfo(Bowman);
-            }else if (radButWizard.Checked)
+            }
+            else if (radButWizard.Checked)
             {
                 ShowInfo(Wizard);
             }
@@ -101,16 +106,20 @@ namespace NChapman_Miller_Final_Project
             if (radButKnight.Checked)
             {
                 return Knight;
-            }else if (radButBeserk.Checked)
+            }
+            else if (radButBeserk.Checked)
             {
                 return Beserker;
-            }else if (radButBlob.Checked)
+            }
+            else if (radButBlob.Checked)
             {
                 return Blob;
-            }else if (radButBowman.Checked)
+            }
+            else if (radButBowman.Checked)
             {
                 return Bowman;
-            }else if (radButWizard.Checked)
+            }
+            else if (radButWizard.Checked)
             {
                 return Wizard;
             }
@@ -123,6 +132,58 @@ namespace NChapman_Miller_Final_Project
             Blob = new character_type("Blob", "Big goo doesn't do much, but absorb", 2, 8, 2, 75, 90, Properties.Resources.Blob, atkSounds[2]);
             Bowman = new character_type("Bowman", "Fast, lethal, precise, and made of glass", 8, 4, 9, 20, 95, Properties.Resources.Bowman, atkSounds[3]);
             Wizard = new character_type("Wizard", "strange man with stranger ideas", 10, 3, 5, 30, 60, Properties.Resources.Wizard, atkSounds[4]);
+        }
+
+        private void butLoad_Click(object sender, EventArgs e)
+        {
+            string filePath = "save.txt";
+
+            if (File.Exists(filePath))
+            {
+                using (StreamReader saveReader = new StreamReader(filePath))
+                {
+                    string line = saveReader.ReadLine();
+                    if (line != null)
+                    {
+                        character_type savedClass = new character_type();
+                        string[] gamerParts = line.Split(',');
+                        if (gamerParts[2] == "Knight")
+                        {
+                            savedClass = Knight;
+
+                        } else if (gamerParts[2] == "Beserker")
+                        {
+                            savedClass = Beserker;
+                        }else if (gamerParts[2] == "Blob")
+                        {
+                            savedClass = Blob;
+                        }else if (gamerParts[2] == "Bowman")
+                        {
+                            savedClass = Bowman;
+                        }else if (gamerParts[2] == "Wizard")
+                        {
+                            savedClass = Wizard;
+                        }
+
+                        int savedHP = int.Parse(gamerParts[0]);
+                        int savedExp = int.Parse(gamerParts[6]);
+                        int savedLvl = int.Parse(gamerParts[7]);
+                        int savedDmg = int.Parse(gamerParts[3]);
+                        int savedMaxHP = int.Parse(gamerParts[4]);
+                        int savedSpd = int.Parse(gamerParts[5]);
+
+                        savedClass.Damage = savedDmg;
+                        savedClass.MaxHealth = savedMaxHP;
+                        savedClass.Speed = savedSpd;
+
+
+                        Player gamer = new Player(gamerParts[1], savedClass, savedHP, savedExp, savedLvl);
+
+                        frmGame gameForm = new frmGame(gamer);
+                        gameForm.ShowDialog();
+                    }
+                }
+            }
         }
     }
 }
