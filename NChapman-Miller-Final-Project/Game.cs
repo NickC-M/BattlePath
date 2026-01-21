@@ -72,12 +72,12 @@ namespace NChapman_Miller_Final_Project
          * constructor
          */
 
-        public frmGame(Player gamerGuy)
+        public frmGame(Player gamerGuy, int depth)
         {
             InitializeComponent();
 
             gamer = gamerGuy;
-
+            currentDepth = depth;
             GameMessages.Output = AddMessage;
 
             runSound = new SoundPlayer(Properties.Resources.running);
@@ -96,7 +96,7 @@ namespace NChapman_Miller_Final_Project
                 "Treasure",
                 $"!!! {gamer.Name.ToUpper()} stumbled upon a treasure chest !!!",
                 $"!!! {gamer.Name.ToUpper()} opened the chest and found 15 Exp !!!",
-                $"!!! The chest was empty :'(  *+1 Exp* !!!",
+                $"!!! The chest was empty :'(  *+5 Exp* !!!",
                 Properties.Resources.chestclosed,
                 Properties.Resources.chestopen,
                 Properties.Resources.chestempty,
@@ -331,7 +331,7 @@ namespace NChapman_Miller_Final_Project
          * explore 
          */
 
-        private void butWalk_Click(object sender, EventArgs e)
+        private async void butWalk_Click(object sender, EventArgs e)
         {
             if (!readyToExplore) return;
 
@@ -456,7 +456,7 @@ namespace NChapman_Miller_Final_Project
                     missSound.Play();
                     pBoxMob.Image = scene.Pic3;
                     PauseForMessage(scene.BadMessage);
-                    gamer.Exp += scene.Exp - 4;
+                    gamer.Exp += scene.Exp - 10;
                     gamer.CurrentHP -= scene.Dmg;
                     UpdatePlayerStats();
 
@@ -759,11 +759,17 @@ namespace NChapman_Miller_Final_Project
         private void butSave_Click(object sender, EventArgs e)
         {
             string filePath = "save.txt";
-
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
             using (StreamWriter saveWriter = new StreamWriter(filePath))
             {
                 saveWriter.WriteLine(gamer);
+                saveWriter.WriteLine(currentDepth);
+                
             }
+            MessageBox.Show("You're game has been saved, press load on the main menu to continue. Thanks for playing!");
             this.Close();
         }
     }

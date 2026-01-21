@@ -17,6 +17,7 @@ namespace NChapman_Miller_Final_Project
         public character_type Blob;
         public character_type Bowman;
         public character_type Wizard;
+        public frmGame gameForm;
 
 
         public frmMainMenu()
@@ -58,7 +59,7 @@ namespace NChapman_Miller_Final_Project
                     character_type selectedClass = SelectClass();
                     resetClasses();
                     Player gamer = new Player(name, selectedClass, selectedClass.MaxHealth, 0, 1);
-                    frmGame gameForm = new frmGame(gamer);
+                    gameForm = new frmGame(gamer, 0);
                     gameForm.ShowDialog();
                 }
             }
@@ -136,6 +137,7 @@ namespace NChapman_Miller_Final_Project
 
         private void butLoad_Click(object sender, EventArgs e)
         {
+            Player gamer;
             string filePath = "save.txt";
 
             if (File.Exists(filePath))
@@ -143,6 +145,9 @@ namespace NChapman_Miller_Final_Project
                 using (StreamReader saveReader = new StreamReader(filePath))
                 {
                     string line = saveReader.ReadLine();
+                    string depth = saveReader.ReadLine();
+
+
                     if (line != null)
                     {
                         character_type savedClass = new character_type();
@@ -151,16 +156,20 @@ namespace NChapman_Miller_Final_Project
                         {
                             savedClass = Knight;
 
-                        } else if (gamerParts[2] == "Beserker")
+                        }
+                        else if (gamerParts[2] == "Beserker")
                         {
                             savedClass = Beserker;
-                        }else if (gamerParts[2] == "Blob")
+                        }
+                        else if (gamerParts[2] == "Blob")
                         {
                             savedClass = Blob;
-                        }else if (gamerParts[2] == "Bowman")
+                        }
+                        else if (gamerParts[2] == "Bowman")
                         {
                             savedClass = Bowman;
-                        }else if (gamerParts[2] == "Wizard")
+                        }
+                        else if (gamerParts[2] == "Wizard")
                         {
                             savedClass = Wizard;
                         }
@@ -177,12 +186,20 @@ namespace NChapman_Miller_Final_Project
                         savedClass.Speed = savedSpd;
 
 
-                        Player gamer = new Player(gamerParts[1], savedClass, savedHP, savedExp, savedLvl);
+                        gamer = new Player(gamerParts[1], savedClass, savedHP, savedExp, savedLvl);
 
-                        frmGame gameForm = new frmGame(gamer);
-                        gameForm.ShowDialog();
+                        gameForm = new frmGame(gamer, int.Parse(depth));
+                        MessageBox.Show("Welcome back " + gamer.Name + "! Good luck on your journey.");
+
+                        
                     }
+
                 }
+                gameForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No save file found!");
             }
         }
     }

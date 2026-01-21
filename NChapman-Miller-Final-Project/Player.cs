@@ -46,6 +46,10 @@ namespace NChapman_Miller_Final_Project
 
 
         }
+        public Player()
+        {
+
+        }
         public async Task TakeDmg(Mob enemy, PictureBox hurt)
         {
             if (enemy == null) return;
@@ -138,7 +142,7 @@ namespace NChapman_Miller_Final_Project
 
         public override string ToString()
         {
-            
+
             return $"{CurrentHP},{Name},{BattleClass.Name},{BattleClass.Damage},{BattleClass.MaxHealth},{BattleClass.Speed},{Exp},{Level}";
         }
     }
