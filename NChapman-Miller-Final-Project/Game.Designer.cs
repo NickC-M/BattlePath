@@ -67,6 +67,10 @@
             butContinue = new Button();
             pBoxDeath = new PictureBox();
             butSave = new Button();
+            pBoxArrw1 = new PictureBox();
+            pBoxArrw2 = new PictureBox();
+            pBoxArrw3 = new PictureBox();
+            pBoxArrw4 = new PictureBox();
             grpBoxPlayerStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pBoxPlayerIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBoxMob).BeginInit();
@@ -74,6 +78,10 @@
             ((System.ComponentModel.ISupportInitialize)pBoxHurt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBoxHurtMob).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBoxDeath).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw4).BeginInit();
             SuspendLayout();
             // 
             // grpBoxPlayerStats
@@ -503,6 +511,54 @@
             butSave.UseVisualStyleBackColor = false;
             butSave.Click += butSave_Click;
             // 
+            // pBoxArrw1
+            // 
+            pBoxArrw1.BackColor = Color.Transparent;
+            pBoxArrw1.Image = Properties.Resources.arrwprojectile;
+            pBoxArrw1.Location = new Point(188, 341);
+            pBoxArrw1.Name = "pBoxArrw1";
+            pBoxArrw1.Size = new Size(93, 22);
+            pBoxArrw1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pBoxArrw1.TabIndex = 22;
+            pBoxArrw1.TabStop = false;
+            pBoxArrw1.Visible = false;
+            // 
+            // pBoxArrw2
+            // 
+            pBoxArrw2.BackColor = Color.Transparent;
+            pBoxArrw2.Image = Properties.Resources.arrwprojectile;
+            pBoxArrw2.Location = new Point(381, 357);
+            pBoxArrw2.Name = "pBoxArrw2";
+            pBoxArrw2.Size = new Size(93, 22);
+            pBoxArrw2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pBoxArrw2.TabIndex = 23;
+            pBoxArrw2.TabStop = false;
+            pBoxArrw2.Visible = false;
+            // 
+            // pBoxArrw3
+            // 
+            pBoxArrw3.BackColor = Color.Transparent;
+            pBoxArrw3.Image = Properties.Resources.arrwprojectile;
+            pBoxArrw3.Location = new Point(528, 327);
+            pBoxArrw3.Name = "pBoxArrw3";
+            pBoxArrw3.Size = new Size(93, 22);
+            pBoxArrw3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pBoxArrw3.TabIndex = 24;
+            pBoxArrw3.TabStop = false;
+            pBoxArrw3.Visible = false;
+            // 
+            // pBoxArrw4
+            // 
+            pBoxArrw4.BackColor = Color.Transparent;
+            pBoxArrw4.Image = Properties.Resources.arrwprojectile;
+            pBoxArrw4.Location = new Point(734, 357);
+            pBoxArrw4.Name = "pBoxArrw4";
+            pBoxArrw4.Size = new Size(93, 22);
+            pBoxArrw4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pBoxArrw4.TabIndex = 25;
+            pBoxArrw4.TabStop = false;
+            pBoxArrw4.Visible = false;
+            // 
             // frmGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -510,6 +566,10 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1000, 450);
+            Controls.Add(pBoxArrw4);
+            Controls.Add(pBoxArrw3);
+            Controls.Add(pBoxArrw2);
+            Controls.Add(pBoxArrw1);
             Controls.Add(butSave);
             Controls.Add(butContinue);
             Controls.Add(lblMessage);
@@ -544,6 +604,10 @@
             ((System.ComponentModel.ISupportInitialize)pBoxHurt).EndInit();
             ((System.ComponentModel.ISupportInitialize)pBoxHurtMob).EndInit();
             ((System.ComponentModel.ISupportInitialize)pBoxDeath).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pBoxArrw4).EndInit();
             ResumeLayout(false);
         }
 
@@ -587,5 +651,9 @@
         private ProgressBar pBarMobHP;
         private PictureBox pBoxDeath;
         private Button butSave;
+        private PictureBox pBoxArrw1;
+        private PictureBox pBoxArrw2;
+        private PictureBox pBoxArrw3;
+        private PictureBox pBoxArrw4;
     }
 }

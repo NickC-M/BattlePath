@@ -351,8 +351,8 @@ namespace NChapman_Miller_Final_Project
         public Room GenerateNextRoom(int depth)
         {
             Random rng = gameRng;
-
-            bool isExit = depth > 6 && rng.Next(100) < (10 + depth * 5);
+            //boss doesnt spawn until at least lvl 10 and an rng factor that increases likelyhood with depth
+            bool isExit = depth > 10 && rng.Next(100) < (10 + depth * 2);
 
             Mob enemy = Enemies[rng.Next(Enemies.Length)];
             Encounter scene = Encounters[rng.Next(Encounters.Length)];
@@ -482,7 +482,16 @@ namespace NChapman_Miller_Final_Project
             }
 
             currentEnemy = enemy;
-
+            if(gamer.Level >= 4)
+            {
+                //enemy scaling with player level, enemy hp dmg and accuracy increase every 4 levels
+                int extraStats = (gamer.Level / 4) * 3;
+                currentEnemy.MaxHealth += extraStats;
+                currentEnemy.Damage += extraStats / 2;
+                currentEnemy.Accuracy += extraStats;
+                currentEnemy.CurrentHp = currentEnemy.MaxHealth;
+                currentEnemy.XP += extraStats / 3;
+            }
             QueueEvent(() =>
             {
                 UpdateMob(currentEnemy);
@@ -566,7 +575,19 @@ namespace NChapman_Miller_Final_Project
                 if (gamer.BattleClass.Speed > currentEnemy.Speed)
                 {
                     if (currentEnemy == null) return;
-                    await currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                    if (gamer.BattleClass.Name.Equals("Bowman"))
+                    {
+                        // using whenall function so projectile "animation" and other sfx happen at the same time, creating a full attack animation (only for bowman rn)
+                        Task arrowAnimation = projectile(pBoxArrw1, pBoxArrw2, pBoxArrw3, pBoxArrw4);
+                        Task attack = currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                        await Task.WhenAll(arrowAnimation, attack);
+                    }
+                    else 
+                    { 
+                        await currentEnemy.TakeDmg(gamer, pBoxHurtMob); 
+                    }
+
+
                     if (currentEnemy == null) return;
                     UpdateMob(currentEnemy);
 
@@ -599,7 +620,17 @@ namespace NChapman_Miller_Final_Project
 
 
                     if (currentEnemy == null) { return; }
-                    await currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                    if (gamer.BattleClass.Name.Equals("Bowman"))
+                    {
+                        // using whenall function so projectile "animation" and other sfx happen at the same time, creating a full attack animation (only for bowman rn)
+                        Task arrowAnimation = projectile(pBoxArrw1, pBoxArrw2, pBoxArrw3, pBoxArrw4);
+                        Task attack = currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                        await Task.WhenAll(arrowAnimation, attack);
+                    }
+                    else
+                    {
+                        await currentEnemy.TakeDmg(gamer, pBoxHurtMob);
+                    }
                     UpdateMob(currentEnemy);
                 }
                 if (currentEnemy == null) return;
@@ -771,6 +802,26 @@ namespace NChapman_Miller_Final_Project
             }
             MessageBox.Show("You're game has been saved, press load on the main menu to continue. Thanks for playing!");
             this.Close();
+        }
+
+        //method to create an animation for a projectile
+        public async Task projectile(PictureBox pBox1, PictureBox pBox2, PictureBox pBox3, PictureBox pBox4)
+        {
+            pBox1.Visible = true;
+            await Task.Delay(100);
+            pBox1.Visible = false;
+            await Task.Delay(100);
+            pBox2.Visible = true;
+            await Task.Delay(100);
+            pBox2.Visible = false;
+            await Task.Delay(100);
+            pBox3.Visible = true;
+            await Task.Delay(100);
+            pBox3.Visible = false;
+            await Task.Delay(100);
+            pBox4.Visible = true;
+            await Task.Delay(300);
+            pBox4.Visible = false;
         }
     }
 }
