@@ -2,4 +2,4 @@
 
 Game is pretty self explanatory, I did not make any of the art!
 
-I mainly wanted to put this project here to experiment with github features. I will update a few things then never touch this again.
+Using this project as a way to experiment with random windows form and c# stuff. Maybe game will look more polished one day.
